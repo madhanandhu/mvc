@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Table">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Table1" Relationship="Self.FK_Table1_Id" FromRole="Table" ToRole="Table1" />
+  </EntityType>
+  <EntityType Name="Table1">
+    <Key>
+      <PropertyRef Name="SId" />
+    </Key>
+    <Property Name="SId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Table" Relationship="Self.FK_Table1_Id" FromRole="Table1" ToRole="Table" />
+  </EntityType>
+  <Association Name="FK_Table1_Id">
+    <End Role="Table" Type="Self.Table" Multiplicity="1" />
+    <End Role="Table1" Type="Self.Table1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Table">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Table1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Tables" EntityType="Self.Table" />
+    <EntitySet Name="Table1" EntityType="Self.Table1" />
+    <AssociationSet Name="FK_Table1_Id" Association="Self.FK_Table1_Id">
+      <End Role="Table" EntitySet="Tables" />
+      <End Role="Table1" EntitySet="Table1" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

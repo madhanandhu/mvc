@@ -1,0 +1,30 @@
+﻿@using All.Models;
+@{
+    ViewBag.Title = "Twomodel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Twomodel in single view</h2>
+<div>
+   @foreach(Table qq in ViewBag.Table)
+   {
+       <div>
+           @qq.Id
+           @qq.Name
+           @qq.Address
+           @qq.Phone
+           @qq.DOB
+       </div>
+   }
+    <hr />
+    @foreach(Table1 qa in ViewBag.Table1)
+    {
+        <div>
+            @qa.SId
+            @qa.Name
+            @qa.Phone
+            @qa.Id
+        </div>
+    }
+    
+</div>
